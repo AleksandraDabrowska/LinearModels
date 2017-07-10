@@ -1,6 +1,7 @@
 ---
 title: "Analysis of time of solving the tasks from mathematics"
 subtitle: "A case study based on data from the PISA2015 test."
+author: "Aleksandra Dąbrowska, Jan Dmitruk, Magda Młynarczyk" 
 date: "5 July 2017"
 output: 
    pdf_document:
@@ -13,8 +14,14 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
 library(ggplot2)
 library(plyr)
 library(dplyr)
+library(lme4)
 load("dane_nowe.rda")
 ```
+#Summary of the project
+
+During the whole project, we have been able to build an optimal model explaining how long students participating in PISA test solved the mathematical tasks. 
+We have considered many combinations of explanatory variables. We also considered an interactions between given variables and chose the most significant ones [(see Interactions)](#5). All variables selected for the final mixed model turned out to be significant [(see Chosen variables).](#4) We chose these variables using the analysis of variance.
+
 
 #Problem
 
@@ -34,7 +41,7 @@ In our work we use two datasets:
 In the original dataset, we have the time of solving single sub-task, in our model we considered the time of solving all task. We also decided to select data from 5 countries (for faster calculations). We extract the information about a number of exercise and number of sub-exercise. For the information for each student, we divided variable specifying parents economical status into five intervals. We also grouped variables describing parents level of education.
 We also transform the dependent variable. We use `logtrans{MASS}` function to find an optimal shift and it was equal 45.
 
-#Chosen variables
+#Chosen variables <a name = "4"></a>
 In our model we consider following variables:
 
 - task number (`zadanie`)
@@ -52,7 +59,7 @@ In our model we consider following variables:
 - school identifier (`id_szkoly`)
 - student identifier (`id_ucznia`)
 
-##Interactions
+##Interactions <a name = "5"></a>
 We want to find interactions between chosen variables. We consider following interactions.
 
 ###Number of the task and its position in questionnaire
